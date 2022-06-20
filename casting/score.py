@@ -1,6 +1,5 @@
 import constants
-
-from casting.actor import Actor
+from actor import Actor
 from shared.point import Point
 
 

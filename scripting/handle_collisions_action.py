@@ -2,6 +2,7 @@ import constants
 from casting.actor import Actor
 from scripting.action import Action
 from shared.point import Point
+from casting.game_over_message import GameOver
 
 class HandleCollisionsAction(Action):
     """
@@ -70,29 +71,36 @@ class HandleCollisionsAction(Action):
                 self._is_game_over = True
         
     def _handle_game_over(self, cast):
-        """Shows the 'game over' message and turns the snake and food white if the game is over.
-        
+        """Shows the 'game over' message and turns both cycles white if the game is over.
+
         Args:
+        ---
             cast (Cast): The cast of Actors in the game.
         """
+
+        # Gets position for gameover message
+        x = int(constants.MAX_X / 2)
+        y = int(constants.MAX_Y / 2)
+        position = Point(x, y)
+
         if self._is_game_over:
-            snake = cast.get_first_actor("snakes")
-            segments = snake.get_segments()
-            snake2 = cast.get_first_actor("foods")
-            other_segments = snake2.get_segments()
+            cycle_one = cast.get_first_actor("cycle_one")
+            cycle_two = cast.get_first_actor("cycle_two")
+            
+            # Gets segments for cycle one and two
+            segments_one = cycle_one.get_segments()
+            segments_two = cycle_two.get_segments()
+            
+            # Creates gameover message
+            game_over = GameOver()
+            game_over.set_position(position)
+            game_over.set_text(self._game_over_message)
+            game_over.set_font_size(50)
+            cast.add_actor("messages", game_over)
 
-            x = int(constants.MAX_X / 2)
-            y = int(constants.MAX_Y / 2)
-            position = Point(x, y)
-
-            message = Actor()
-            message.set_color(constants.BLUE)
-            message.set_text("Game Over!")
-            message.set_font_size(60)
-            message.set_position(position)
-            cast.add_actor("messages", message)
-
-            for segment in segments:
+            # Changes color of cycles to white after the game ends
+            for segment in segments_one:
                 segment.set_color(constants.WHITE)
-            for seg in other_segments:                    
-                seg.set_color(constants.WHITE)
+
+            for segment in segments_two:
+                segment.set_color(constants.WHITE)

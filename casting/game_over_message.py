@@ -13,7 +13,7 @@ class GameOver(Actor):
     def __init__(self):
         "Constructs a game over message."
         super().__init__()
-        self._color = constants.GREEN
+        self._color = constants.BLUE
 
     def get_color(self):
         """Gets the actor's color as a tuple of three ints (r, g, b).

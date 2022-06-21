@@ -68,6 +68,20 @@ class Cycle(Actor):
         ---
             Actor: The first actor from the list of actors in _segments."""
         return self._segments[0]
+    
+    def grow_tail(self, number_of_segments):
+        for i in range(number_of_segments):
+            tail = self._segments[-1]
+            velocity = tail.get_velocity()
+            offset = velocity.reverse()
+            position = tail.get_position().add(offset)
+            
+            segment = Actor()
+            segment.set_position(position)
+            segment.set_velocity(velocity)
+            segment.set_text("#")
+            segment.set_color(constants.GREEN)
+            self._segments.append(segment)
 
     def wall(self, game_over):
         """Builds the wall for each cycle.

@@ -1,6 +1,8 @@
+
 import constants
 from scripting.action import Action
 from shared.point import Point
+from scripting.handle_collisions_action import HandleCollisionsAction
 
 
 class ControlActorsAction(Action):
@@ -22,6 +24,7 @@ class ControlActorsAction(Action):
         self._keyboard_service = keyboard_service
         self._cycle_one_direction = Point(0, -constants.CELL_SIZE)
         self._cycle_two_direction = Point(0, -constants.CELL_SIZE)
+        self._is_game_over = True
 
     def execute(self, cast, script):
         """Executes the control actors action.
@@ -41,6 +44,8 @@ class ControlActorsAction(Action):
             self._cycle_one_direction = Point(-constants.CELL_SIZE, 0)
             for i in range(1):
                 self.cycle_one.grow_tail(i + 1)
+                if self._is_game_over== True:
+                    self.grow_tail.set_color(constants.WHITE)
 
         # right
         if self._keyboard_service.is_key_down('d'):

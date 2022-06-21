@@ -32,3 +32,6 @@ class GameOver(Actor):
             color (Color): The given color.
         """
         return super().set_color(color)
+    
+    def set_text(self, text):
+        return super().set_text('Game Over!!')

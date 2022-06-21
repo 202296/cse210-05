@@ -3,6 +3,7 @@ from casting.actor import Actor
 from scripting.action import Action
 from shared.point import Point
 from casting.game_over_message import GameOver
+import variable
 
 class HandleCollisionsAction(Action):
     """
@@ -17,7 +18,7 @@ class HandleCollisionsAction(Action):
 
     def __init__(self):
         """Constructs a new HandleCollisionsAction."""
-        self._is_game_over = False
+        
         self._game_over_message = ""
 
 
@@ -28,7 +29,7 @@ class HandleCollisionsAction(Action):
             cast (Cast): The cast of Actors in the game.
             script (Script): The script of Actions in the game.
         """
-        if not self._is_game_over:
+        if not variable.GAME_OVER:
             
             self._handle_segment_collision(cast)
             self._handle_game_over(cast)
@@ -51,11 +52,11 @@ class HandleCollisionsAction(Action):
         
         for segment in segments_one:
             if head2.get_position().equals(segment.get_position()):
-                self._is_game_over = True
+                variable.GAME_OVER = True
 
         for seg in segments_two:        
             if head.get_position().equals(seg.get_position()):  
-                self._is_game_over = True
+                variable.GAME_OVER = True
         
     def _handle_game_over(self, cast):
         """Shows the 'game over' message and turns both cycles white if the game is over.
@@ -70,7 +71,7 @@ class HandleCollisionsAction(Action):
         y = int(constants.MAX_Y / 2)
         position = Point(x, y)
 
-        if self._is_game_over:
+        if variable.GAME_OVER:
             cycle_one = cast.get_first_actor("cycle_one")
             cycle_two = cast.get_first_actor("cycle_two")
             
@@ -81,7 +82,7 @@ class HandleCollisionsAction(Action):
             # Creates gameover message
             game_over = GameOver()
             game_over.set_position(position)
-            game_over.set_text(self._game_over_message)
+            game_over.set_text("Game Over!")
             game_over.set_font_size(50)
             cast.add_actor("messages", game_over)
 

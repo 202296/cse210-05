@@ -1,4 +1,5 @@
 import constants
+import variable
 from casting.actor import Actor
 from shared.point import Point
 from shared.color import Color
@@ -80,7 +81,10 @@ class Cycle(Actor):
             segment.set_position(position)
             segment.set_velocity(velocity)
             segment.set_text("#")
-            segment.set_color(constants.GREEN)
+            if not variable.GAME_OVER:
+                segment.set_color(self._color)
+            else:
+                segment.set_color(constants.WHITE)
             self._segments.append(segment)
 
     def wall(self, game_over):

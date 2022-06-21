@@ -62,22 +62,28 @@ class ControlActorsAction(Action):
         
 
         # Cycle two keyboard Inputs
-
+        self.cycle_two = cast.get_first_actor("cycle_two")
+        self.cycle_two.turn_cycle(self._cycle_two_direction)
+        
         # left
         if self._keyboard_service.is_key_down('j'):
             self._cycle_two_direction = Point(-constants.CELL_SIZE, 0)
-
+            for i in range(1):
+                self.cycle_two.grow_tail(i + 1)
         # right
         if self._keyboard_service.is_key_down('l'):
             self._cycle_two_direction = Point(constants.CELL_SIZE, 0)
-
+            for i in range(1):
+                self.cycle_two.grow_tail(i + 1)
         # up
         if self._keyboard_service.is_key_down('i'):
             self._cycle_two_direction = Point(0, -constants.CELL_SIZE)
-
+            for i in range(1):
+                self.cycle_two.grow_tail(i + 1)
         # down
         if self._keyboard_service.is_key_down('k'):
             self._cycle_two_direction = Point(0, constants.CELL_SIZE)
+            for i in range(1):
+                self.cycle_two.grow_tail(i + 1)
 
-        cycle_two = cast.get_first_actor("cycle_two")
-        cycle_two.turn_cycle(self._cycle_two_direction)
+        

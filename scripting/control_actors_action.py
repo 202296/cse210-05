@@ -44,8 +44,6 @@ class ControlActorsAction(Action):
             self._cycle_one_direction = Point(-constants.CELL_SIZE, 0)
             for i in range(1):
                 self.cycle_one.grow_tail(i + 1)
-                if self._is_game_over== True:
-                    self.grow_tail.set_color(constants.WHITE)
 
         # right
         if self._keyboard_service.is_key_down('d'):

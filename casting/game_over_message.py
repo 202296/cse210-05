@@ -1,3 +1,4 @@
+from email import message
 import constants
 from casting.actor import Actor
 
@@ -33,5 +34,6 @@ class GameOver(Actor):
         """
         return super().set_color(color)
     
-    def set_text(self, text):
-        return super().set_text(text)
+    def set_text(self, text, winner):
+        message = text + "\n" + winner
+        return super().set_text(message)

@@ -43,23 +43,30 @@ class HandleCollisionsAction(Action):
         """
         cycle = cast.get_first_actor("cycle_one")
         head = cycle.get_segments()[0]
+        score = cast.get_first_actor("score1")
         segments_one = cycle.get_segments()[1:]
         
         cycle2 = cast.get_first_actor("cycle_two")
         head2 = cycle2.get_segments()[0]
+        score2 = cast.get_first_actor("score2")
         segments_two = cycle2.get_segments()[1:]
         
         for segment in segments_one:
             if head2.get_position().equals(head.get_position()):
-                self._is_game_over = True
+                variable.GAME_OVER = True
+                variable.WINNER = "Tie!"
         
         for segment in segments_one:
             if head2.get_position().equals(segment.get_position()):
                 variable.GAME_OVER = True
+                variable.WINNER = f"The Winner is {cycle.get_name()}"
+                score.add_points(1)
 
         for seg in segments_two:        
             if head.get_position().equals(seg.get_position()):  
                 variable.GAME_OVER = True
+                variable.WINNER = f"The Winner is {cycle2.get_name()} "
+                score2.add_points(1)
         
     def _handle_game_over(self, cast):
         """Shows the 'game over' message and turns both cycles white if the game is over.
@@ -85,7 +92,7 @@ class HandleCollisionsAction(Action):
             # Creates gameover message
             game_over = GameOver()
             game_over.set_position(position)
-            game_over.set_text("Game Over!")
+            game_over.set_text("Game Over!", variable.WINNER)
             game_over.set_font_size(50)
             cast.add_actor("messages", game_over)
 

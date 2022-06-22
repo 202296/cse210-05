@@ -1,1 +1,2 @@
 GAME_OVER = False
+WINNER = ""

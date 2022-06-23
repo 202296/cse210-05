@@ -54,7 +54,7 @@ class HandleCollisionsAction(Action):
         for segment in segments_one:
             if head2.get_position().equals(head.get_position()):
                 variable.GAME_OVER = True
-                variable.WINNER = "Tie!"
+                variable.WINNER = "Tied!"
         
         for segment in segments_one:
             if head2.get_position().equals(segment.get_position()):

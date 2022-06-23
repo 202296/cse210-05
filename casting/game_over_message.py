@@ -1,7 +1,5 @@
-from email import message
 import constants
 from casting.actor import Actor
-
 
 class GameOver(Actor):
     """
